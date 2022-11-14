@@ -1,0 +1,72 @@
+--찜 (Wish)
+drop sequence wish_seq;
+create sequence wish_seq
+increment by 1
+start with 1
+minvalue 1
+nocache;
+
+DROP TABLE wish CASCADE CONSTRAINTS;
+create table wish(
+   wish_no number primary key, --pk
+   mno number references member(mno) on delete cascade, -- 회원(누가쓴건지) fk
+   restorants_no number -- 맛집 업체들 
+);
+
+commit;
+
+
+-------------------------------------------------------------------------------
+
+
+--공지사항 (notice)
+         
+drop sequence notiseq;            
+create sequence notiseq            
+start with 1            
+increment by 1            
+nocache;            
+               
+drop table notice cascade constraints;            
+create table notice(            
+   no number not null primary key,      
+   subject varchar2(100) not null,   
+   writer varchar2(50) not null,               
+   reg_date date default sysdate, --작성일               
+   content varchar2(500),         
+   image varchar2(500),   
+   readcount number default 0 -- 조회수         
+);               
+   
+insert into notice(no,subject,writer,image)            
+values(notiseq.nextval,'리뷰시 오류 관련 공지사항','admin','공지사항게시판1.png');            
+insert into notice(no,subject,writer,image)         
+values(notiseq.nextval,'리뷰 참여시 이벤트(이벤트)','admin','공지사항4.png');               
+insert into notice(no,subject,writer,image)         
+values(notiseq.nextval,'자주 묻는 질문','admin','공지사항4.png');            
+
+commit;   
+
+select * from notice;    
+
+-------------------------------------------------------------------------------
+
+--member(회원)
+
+drop sequence member_seq;
+create sequence member_seq
+increment by 1
+start with 1
+nocache;
+
+drop table member cascade constraints;
+create table member(
+   member_no number primary key, --회원 번호
+   member_id varchar2(100), --회원 아이디
+   member_pw varchar2(100), --회원 비밀번호
+   member_name varchar2(100), --회원 이름
+   member_email varchar2(100), --회원 이메일
+   member_hp varchar2(100), --회원 전화번호
+   member_date date --회원 가입일
+);
+
