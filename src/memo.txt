@@ -70,3 +70,50 @@ create table member(
    member_date date --회원 가입일
 );
 
+--------------------------------------------------------------------------------------
+
+--업체(foodstore) 테이블
+
+drop squence foodstore_seq;
+
+create squence foodstore_seq
+increment by 1
+start with 1
+minvalue 1
+nocache;
+
+
+DROP TABLE foodstore CASCADE CONSTRAINTS;
+
+create table foodstore(
+store_no number primary key,
+store_name varchar2(50),--상호명
+store_addr varchar2(50),--주소
+store_tel varchar2(15),--전화번호
+business hours varchar2(20),--영업시간
+store_img varchar2(100),--가게이미지
+hashtag varchar2(50),--해시태그
+readcount number default 0,--조회수
+store_date date default sysdate--등록일
+);
+
+-----------------------------------------------------------------
+
+--메뉴테이블(업체 테이블이랑 조인할 테이블)
+drop squence menu_seq;
+
+create squence menu_seq
+increment by 1
+start with 1
+minvalue 1
+nocache;
+
+
+DROP TABLE menu CASCADE CONSTRAINTS;
+
+create table menu(
+menu_no number primary key,
+menu_name varchar2(50),--메뉴이름
+menu_price varchar2(50),--메뉴가격
+menu_img varchar2(100)--메뉴이미지
+);
